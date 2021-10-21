@@ -1,10 +1,10 @@
 package ru.bprn.webtop.data;
 
+import com.vaadin.fusion.Nonnull;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
-import com.vaadin.fusion.Nonnull;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
