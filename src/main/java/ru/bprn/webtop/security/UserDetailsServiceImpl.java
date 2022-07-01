@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ru.bprn.webtop.data.entity.User;
-import ru.bprn.webtop.data.service.UserRepository;
+import ru.bprn.webtop.data.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

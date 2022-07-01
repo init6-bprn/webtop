@@ -2,20 +2,16 @@ package ru.bprn.webtop.data.generator;
 
 import com.vaadin.flow.spring.annotation.SpringComponent;
 
-import ru.bprn.webtop.data.service.UserRepository;
+import ru.bprn.webtop.data.repository.UserRepository;
 import ru.bprn.webtop.data.entity.User;
 import java.util.Collections;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.bprn.webtop.data.Role;
 
-import java.time.LocalDateTime;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import com.vaadin.exampledata.DataType;
-import com.vaadin.exampledata.ExampleDataGenerator;
 
 @SpringComponent
 public class DataGenerator {

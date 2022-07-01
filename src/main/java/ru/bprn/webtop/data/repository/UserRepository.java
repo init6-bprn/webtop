@@ -1,4 +1,4 @@
-package ru.bprn.webtop.data.service;
+package ru.bprn.webtop.data.repository;
 
 import ru.bprn.webtop.data.entity.User;
 
