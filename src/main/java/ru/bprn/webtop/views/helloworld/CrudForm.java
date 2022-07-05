@@ -17,12 +17,15 @@ public class CrudForm extends FormLayout {
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
+    private Object ent;
 
     public CrudForm(Class<? extends AbstractEntity>  entity) {
 
         List<Field> fields = Arrays.stream(entity.getDeclaredFields()).toList();
         for (Field field: fields
         ) {
+
+
             add(new TextField(field.getName()));
             }
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -31,5 +34,9 @@ public class CrudForm extends FormLayout {
 
         add( new HorizontalLayout(save, delete, close));
 
+    }
+
+    public <T> void setData (T ent) {
+        this.ent = ent;
     }
 }

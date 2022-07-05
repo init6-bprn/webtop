@@ -1,23 +1,14 @@
 package ru.bprn.webtop.views.helloworld;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H6;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import ru.bprn.webtop.data.entity.PrintMashine;
 import ru.bprn.webtop.data.service.PrintMashineService;
 import ru.bprn.webtop.views.MainLayout;
-import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
 
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
@@ -28,6 +19,7 @@ public class HelloWorldView extends HorizontalLayout {
     private Grid<PrintMashine> grid = new Grid<>(PrintMashine.class);
     private PrintMashineService printMashineService;
     private String name = "";
+    private CrudForm form;
 
     public HelloWorldView(PrintMashineService printMashineService) {
         this.printMashineService = printMashineService;
@@ -36,7 +28,8 @@ public class HelloWorldView extends HorizontalLayout {
         configureGrid();
         add(grid);
         updateList();
-        add (new CrudForm(grid.getBeanType()));
+        form = new CrudForm(grid.getBeanType());
+        add (form);
         /*
         List<Field> fields = Arrays.stream(PrintMashine.class.getDeclaredFields()).toList();
         for (Field field: fields
@@ -49,7 +42,24 @@ public class HelloWorldView extends HorizontalLayout {
     private void configureGrid() {
         grid.addClassName("printmashine-grid");
         grid.setSizeFull();
-       // grid.setColumns("name", "typeOfPrinter", "quantityColors");
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editContact(event.getValue()));
+
+    }
+
+    public <T> void editContact(T contact) {
+        if (contact == null) {
+            closeEditor();
+        } else {
+            form.setData(contact);
+            form.setVisible(true);
+            addClassName("editing");
+        }
+    }
+    private void closeEditor() {
+        form.setData(null);
+        form.setVisible(false);
+        removeClassName("editing");
     }
 
     private  void updateList (){
