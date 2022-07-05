@@ -11,11 +11,11 @@ public class PrintMashine extends AbstractEntity {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "type_of_printer", nullable = false )
     private TypeOfPrinter typeOfPrinter;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "quantity_colors_id", nullable = false)
     private QuantityColors quantityColors;
 

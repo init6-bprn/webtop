@@ -3,6 +3,7 @@ package ru.bprn.webtop.data;
 import com.vaadin.fusion.Nonnull;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -10,15 +11,15 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy= GenerationType.SEQUENCE)
     @Nonnull
-    private Integer id;
+    private Long id;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
