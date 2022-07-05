@@ -2,6 +2,7 @@ package ru.bprn.webtop.views.helloworld;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,6 +15,10 @@ import ru.bprn.webtop.views.MainLayout;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
@@ -22,6 +27,7 @@ public class HelloWorldView extends HorizontalLayout {
 
     private Grid<PrintMashine> grid = new Grid<>(PrintMashine.class);
     private PrintMashineService printMashineService;
+    private String name = "";
 
     public HelloWorldView(PrintMashineService printMashineService) {
         this.printMashineService = printMashineService;
@@ -30,23 +36,20 @@ public class HelloWorldView extends HorizontalLayout {
         configureGrid();
         add(grid);
         updateList();
-
-/*
-
-        name = new TextField("Your name");
-        sayHello = new Button("Say hello");
-        add(name, sayHello);
-        setVerticalComponentAlignment(Alignment.END, name, sayHello);
-        sayHello.addClickListener(e -> {
-            Notification.show("Hello " + name.getValue());
-        });
-
- */
+        add (new CrudForm(grid.getBeanType()));
+        /*
+        List<Field> fields = Arrays.stream(PrintMashine.class.getDeclaredFields()).toList();
+        for (Field field: fields
+             ) {
+            name += field.getName() + " " + field.getType().getTypeName() + "\n\r";
+        }
+        add(new H6(name));
+        */
     }
     private void configureGrid() {
         grid.addClassName("printmashine-grid");
         grid.setSizeFull();
-        grid.setColumns("name", "typeOfPrinter", "quantityColors");
+       // grid.setColumns("name", "typeOfPrinter", "quantityColors");
     }
 
     private  void updateList (){
