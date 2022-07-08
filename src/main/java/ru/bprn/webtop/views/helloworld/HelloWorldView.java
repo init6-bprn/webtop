@@ -6,6 +6,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import ru.bprn.webtop.data.AbstractEntity;
 import ru.bprn.webtop.data.entity.PrintMashine;
 import ru.bprn.webtop.data.service.PrintMashineService;
 import ru.bprn.webtop.views.MainLayout;
@@ -28,26 +29,20 @@ public class HelloWorldView extends HorizontalLayout {
         configureGrid();
         add(grid);
         updateList();
-        form = new CrudForm(grid.getBeanType());
+        form = new CrudForm(grid. asSingleSelect().getValue(), PrintMashine.class);
         add (form);
-        /*
-        List<Field> fields = Arrays.stream(PrintMashine.class.getDeclaredFields()).toList();
-        for (Field field: fields
-             ) {
-            name += field.getName() + " " + field.getType().getTypeName() + "\n\r";
-        }
-        add(new H6(name));
-        */
+
     }
     private void configureGrid() {
         grid.addClassName("printmashine-grid");
         grid.setSizeFull();
+
         grid.asSingleSelect().addValueChangeListener(event ->
                 editContact(event.getValue()));
 
     }
 
-    public <T> void editContact(T contact) {
+    public <T extends AbstractEntity> void editContact(T contact) {
         if (contact == null) {
             closeEditor();
         } else {
